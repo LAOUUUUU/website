@@ -24,15 +24,18 @@
       --radius: 22px;
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      background: #0b0b0b;
+    }
 
     body {
       margin: 0;
       color: var(--ink);
       font-family: "Manrope", sans-serif;
       line-height: 1.65;
-      background:
-        linear-gradient(180deg, #0b0b0b 0%, #111111 100%);
+      background: linear-gradient(180deg, #0b0b0b 0%, #111111 100%);
+      min-height: 100vh;
     }
 
     a { color: inherit; }
@@ -43,18 +46,15 @@
     }
 
     .hero {
-      position: relative;
-      overflow: hidden;
-      margin: 1rem auto 2rem;
-      padding: 1rem;
+      margin: 0.8rem auto 1.5rem;
+      padding: 0.5rem;
     }
 
     .hero-card {
-      position: relative;
       background: linear-gradient(135deg, rgba(15, 15, 16, 0.98), rgba(28, 28, 29, 0.96));
       color: var(--ash);
-      border-radius: 34px;
-      padding: 2.2rem;
+      border-radius: 22px;
+      padding: 1.9rem;
       box-shadow: var(--shadow);
       border: 1px solid rgba(243, 128, 32, 0.14);
     }
@@ -111,10 +111,10 @@
     }
 
     .hero-note {
-      background: rgba(243, 128, 32, 0.06);
-      border: 1px solid rgba(243, 128, 32, 0.24);
-      border-radius: 24px;
-      padding: 1.4rem;
+      background: rgba(243, 128, 32, 0.04);
+      border: 1px solid rgba(243, 128, 32, 0.16);
+      border-radius: 16px;
+      padding: 1rem;
       align-self: stretch;
     }
 
@@ -139,17 +139,16 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1px;
-      background: rgba(243, 128, 32, 0.15);
-      border: 1px solid rgba(243, 128, 32, 0.18);
-      margin: -1rem auto 2rem;
-      border-radius: 18px;
+      background: rgba(243, 128, 32, 0.1);
+      border: 1px solid rgba(243, 128, 32, 0.12);
+      margin: -0.35rem auto 1.3rem;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: var(--shadow);
     }
 
     .fact {
       background: rgba(24, 25, 27, 0.96);
-      padding: 1.1rem 1rem;
+      padding: 0.9rem 0.85rem;
     }
 
     .fact .kicker {
@@ -175,7 +174,7 @@
 
     .section {
       margin: 1.05rem 0;
-      padding: 2rem;
+      padding: 1.4rem;
       background: var(--panel);
       border: 1px solid rgba(243, 128, 32, 0.16);
       border-radius: var(--radius);
@@ -196,7 +195,7 @@
       flex-wrap: wrap;
       justify-content: space-between;
       gap: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       align-items: end;
     }
 
@@ -237,10 +236,10 @@
     .faq-card,
     .brief-card,
     .source-card {
-      border-radius: 20px;
-      padding: 1.05rem;
+      border-radius: 12px;
+      padding: 0.9rem;
       background: rgba(31, 32, 35, 0.92);
-      border: 1px solid var(--line);
+      border: 1px solid rgba(243, 128, 32, 0.1);
     }
 
     .info-card h3,
@@ -273,15 +272,15 @@
       grid-template-columns: auto 1fr;
       gap: 0.9rem;
       align-items: start;
-      padding: 1rem 0;
-      border-top: 1px solid var(--line);
+      padding: 0.8rem 0;
+      border-top: 1px solid rgba(243, 128, 32, 0.1);
     }
 
     .timeline-step:first-child { border-top: none; padding-top: 0; }
 
     .step-no {
-      width: 2.2rem;
-      height: 2.2rem;
+      width: 1.95rem;
+      height: 1.95rem;
       display: grid;
       place-items: center;
       border-radius: 50%;
@@ -297,9 +296,7 @@
       margin-bottom: 0.35rem;
     }
 
-    .record-box {
-      background: linear-gradient(180deg, rgba(243, 128, 32, 0.12), rgba(31, 32, 35, 0.96));
-    }
+    .record-box { background: rgba(31, 32, 35, 0.96); }
 
     .record-box ul,
     .brief-card ul,
@@ -318,10 +315,7 @@
       gap: 1rem;
     }
 
-    .program-card {
-      background:
-        linear-gradient(180deg, rgba(243, 128, 32, 0.11), rgba(31, 32, 35, 0.94));
-    }
+    .program-card { background: rgba(31, 32, 35, 0.94); }
 
     .program-card .place,
     .program-card .focus {
@@ -362,9 +356,7 @@
       margin-bottom: 0.6rem;
     }
 
-    .brief-card {
-      background: linear-gradient(180deg, rgba(243, 128, 32, 0.08), rgba(31, 32, 35, 0.96));
-    }
+    .brief-card { background: rgba(31, 32, 35, 0.96); }
 
     .footer {
       margin: 1rem 0 2rem;
@@ -401,7 +393,7 @@
 
     @media (max-width: 720px) {
       .hero-card,
-      .section { padding: 1.35rem; }
+      .section { padding: 1.15rem; }
 
       .hero-grid,
       .two-col,
@@ -429,14 +421,13 @@
             <h1>The <em>YCJA</em> for Teens</h1>
             <p>
               A one page youth justice booth that shows how the
-              <strong>Youth Criminal Justice Act</strong> treats ages 12 to 17 different from adults and why it tries to help youth learn from mistakes.
+              <strong>Youth Criminal Justice Act</strong> treats ages 12 to 17 different from adults and why it helps youth learn from mistakes.
             </p>
           </div>
           <aside class="hero-note">
             <p class="label">Quick note</p>
             <p>This version is made for a Toronto area class.</p>
-            <p>It covers the main parts like purpose records privacy local programs and teen questions.</p>
-            <p>You can even read parts of it out loud if you want.</p>
+            <p>It covers purpose privacy records local programs and teen questions.</p>
           </aside>
         </div>
       </div>
@@ -472,26 +463,26 @@
           <h2>Why does the YCJA exist?</h2>
         </div>
         <p class="section-intro">
-          The YCJA knows teens are still learning. It is not the same as the adult system. It tries to be fair but also helpful.
+          The YCJA knows teens are still learning. It is different from the adult system and tries to be fair and helpful.
         </p>
       </div>
       <div class="card-grid">
         <article class="info-card">
           <h3>Different from adults</h3>
           <p>
-            The youth system is separate because young people need more support and have more time to change.
+            Young people need more support and have more time to change.
           </p>
         </article>
         <article class="info-card">
           <h3>Rehabilitation</h3>
           <p>
-            The YCJA wants youth to learn from what happened fix harm and try not to do it again.
+            The YCJA wants youth to learn from what happened and fix harm.
           </p>
         </article>
         <article class="info-card">
           <h3>Reintegration</h3>
           <p>
-            A big goal is helping youth get back into normal life like school family and better choices.
+            A big goal is helping youth get back into normal life.
           </p>
         </article>
       </div>
@@ -504,7 +495,7 @@
           <h2>What usually happens when a youth gets in trouble?</h2>
         </div>
         <p class="section-intro">
-          For less serious non violent offences the law often uses an outside court response first. That can be a warning a caution a referral or an extrajudicial sanction.
+          For less serious non violent offences the law often uses an outside court response first.
         </p>
       </div>
       <div class="two-col">
@@ -514,7 +505,7 @@
               <div class="step-no">1</div>
               <div>
                 <h3>Police contact</h3>
-                <p>A youth who gets arrested or detained has to be told right away that they can talk to a lawyer.</p>
+                <p>A youth who gets arrested or detained has to be told right away they can talk to a lawyer.</p>
               </div>
             </div>
             <div class="timeline-step">
@@ -528,7 +519,7 @@
               <div class="step-no">3</div>
               <div>
                 <h3>Extrajudicial option</h3>
-                <p>For a first time non violent offence this might be enough to hold the youth accountable and help fix the harm.</p>
+                <p>For a first time non violent offence this might be enough to hold the youth accountable.</p>
               </div>
             </div>
             <div class="timeline-step">
@@ -543,13 +534,13 @@
         <aside class="info-card record-box">
           <h3>Example of an Extrajudicial Measure</h3>
           <p>
-            Imagine a 16 year old gets caught shoplifting. Police or Crown might choose an outside court response if it is non violent and the youth takes responsibility for it.
+            Imagine a 16 year old gets caught shoplifting. Police or Crown might choose an outside court response if it is non violent and the youth takes responsibility.
           </p>
           <ul>
             <li>Write an apology or join a restorative meeting.</li>
             <li>Return or pay back what was taken.</li>
             <li>Do community service hours.</li>
-            <li>Go to a program about choices theft or conflict.</li>
+            <li>Go to a program about choices or conflict.</li>
           </ul>
         </aside>
       </div>
@@ -562,20 +553,20 @@
           <h2>What happens to a youth criminal record?</h2>
         </div>
         <p class="section-intro">
-          The YCJA gives youth more privacy than adults. A youth record is different from an adult record and only certain people can see it.
+          The YCJA gives youth more privacy than adults and only certain people can see a youth record.
         </p>
       </div>
       <div class="two-col">
         <article class="info-card">
           <h3>Identity protection</h3>
           <p>
-            In most situations the public cannot publish a youth name or details that identify them. That helps stop one mistake from following them for years.
+            In most situations the public cannot publish a youth name or details that identify them.
           </p>
         </article>
         <article class="info-card">
           <h3>Who can access records?</h3>
           <p>
-            Access is limited. Police the court the youth the youth lawyer parents or guardians and some justice workers can see records in some situations.
+            Police the court the youth the youth lawyer parents or guardians and some justice workers can see records in some situations.
           </p>
         </article>
       </div>
@@ -583,13 +574,13 @@
         <article class="info-card record-box">
           <h3>Important reality</h3>
           <p>
-            A youth record does not just disappear when someone turns 18. It depends on the case how serious it was and if they get in trouble again.
+            A youth record does not just disappear at 18. It depends on the case and if they get in trouble again.
           </p>
         </article>
         <article class="info-card record-box">
           <h3>Bottom line</h3>
           <p>
-            The YCJA still holds youth accountable but it tries not to let one mistake define everything. Privacy is part of helping a young person move on.
+            The YCJA still holds youth accountable but tries not to let one mistake define everything.
           </p>
         </article>
       </div>
@@ -602,7 +593,7 @@
           <h2>Real Toronto-area programs</h2>
         </div>
         <p class="section-intro">
-          These are real community based options that help youth take responsibility and get support. Using real local programs also makes the project better.
+          These are real community based options that help youth take responsibility and get support.
         </p>
       </div>
       <div class="program-grid">
@@ -611,7 +602,7 @@
           <span class="focus">Court diversion</span>
           <h3>Peacebuilders Canada</h3>
           <p>
-            Peacebuilders runs <strong>Restorative Youth Circles</strong> for court involved youth ages 12 to 18. It focuses on responsibility making amends and moving forward.
+            Peacebuilders runs <strong>Restorative Youth Circles</strong> for court involved youth ages 12 to 18. It focuses on responsibility and making amends.
           </p>
           <p style="margin-top: 0.8rem;">
             <a href="https://peacebuilders.ca/restorative-justice-programs/" target="_blank" rel="noreferrer">peacebuilders.ca/restorative-justice-programs</a>
@@ -622,7 +613,7 @@
           <span class="focus">Restorative justice</span>
           <h3>YNOT Services</h3>
           <p>
-            YNOT has a restorative justice program for youth and young adults who have been charged with or convicted of offences. It also helps people who were harmed.
+            YNOT has a restorative justice program for youth and young adults who have been charged with or convicted of offences.
           </p>
           <p style="margin-top: 0.8rem;">
             <a href="https://ynotservices.org/services/restorative-justice/" target="_blank" rel="noreferrer">ynotservices.org/services/restorative-justice</a>
@@ -633,7 +624,7 @@
           <span class="focus">Community healing</span>
           <h3>Community Justice Programs</h3>
           <p>
-            The City of Toronto supports restorative justice programs where youth look at harm learn conflict skills and help repair relationships in the community.
+            The City of Toronto supports restorative justice programs where youth look at harm and help repair relationships in the community.
           </p>
           <p style="margin-top: 0.8rem;">
             <a href="https://www.toronto.ca/community-people/public-safety-alerts/community-safety-wellbeing-programs/community-justice/" target="_blank" rel="noreferrer">toronto.ca/community-justice</a>
@@ -649,14 +640,14 @@
           <h2>Questions teens actually ask</h2>
         </div>
         <p class="section-intro">
-          These answers are simple so you can say them in class easily.
+          These answers are simple and easy to say in class.
         </p>
       </div>
       <div class="faq-grid">
         <article class="faq-card">
           <h3>Can I talk to a lawyer if I am arrested?</h3>
           <p>
-            Yes. Under the YCJA a young person who is arrested or detained has to be told right away about their right to a lawyer and gets a chance to contact one. In Ontario Legal Aid Ontario can help if the youth qualifies.
+            Yes. Under the YCJA a young person who is arrested or detained has to be told right away about their right to a lawyer and gets a chance to contact one.
           </p>
         </article>
         <article class="faq-card">

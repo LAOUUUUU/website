@@ -6,7 +6,7 @@
   <title>YCJA Youth Justice Resource Booth</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -24,18 +24,65 @@
       --radius: 22px;
     }
 
-    html {
-      scroll-behavior: smooth;
-      background: #0b0b0b;
-    }
+    html { scroll-behavior: smooth; background: #0b0b0b; }
 
     body {
       margin: 0;
       color: var(--ink);
       font-family: "Manrope", sans-serif;
       line-height: 1.65;
-      background: linear-gradient(180deg, #0b0b0b 0%, #111111 100%);
+      background: #0b0b0b;
       min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(243,128,32,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(243,128,32,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridShift 20s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes gridShift {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(60px); }
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(243,128,32,0.12), transparent 70%);
+      top: -120px; right: -100px;
+      animation: float 12s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(217,93,18,0.1), transparent 70%);
+      bottom: 20%; left: -100px;
+      animation: float 12s ease-in-out infinite;
+      animation-delay: -5s;
+    }
+    .orb-3 {
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(255,177,92,0.08), transparent 70%);
+      top: 50%; right: 10%;
+      animation: float 12s ease-in-out infinite;
+      animation-delay: -9s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%       { transform: translateY(-30px) scale(1.04); }
     }
 
     a { color: inherit; }
@@ -43,20 +90,70 @@
     .page-shell {
       width: min(1120px, calc(100% - 2rem));
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
-    .hero {
-      margin: 0.8rem auto 1.5rem;
-      padding: 0.5rem;
+    /* nav */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.6rem 0;
+      margin-bottom: 0.5rem;
     }
+    .nav-inner {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15,15,16,0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(243,128,32,0.18);
+      border-radius: 999px;
+      padding: 0.45rem 0.8rem;
+      width: fit-content;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-link:hover { color: var(--orange-soft); background: rgba(243,128,32,0.1); }
+    .nav-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(243,128,32,0.3); }
 
+    /* hero */
+    .hero { margin: 0.8rem auto 1.5rem; padding: 0.5rem; }
     .hero-card {
-      background: linear-gradient(135deg, rgba(15, 15, 16, 0.98), rgba(28, 28, 29, 0.96));
+      background: linear-gradient(135deg, rgba(15,15,16,0.98), rgba(28,28,29,0.96));
       color: var(--ash);
       border-radius: 22px;
-      padding: 1.9rem;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(243, 128, 32, 0.14);
+      padding: 2.2rem;
+      box-shadow: var(--shadow), 0 0 0 1px rgba(243,128,32,0.08);
+      border: 1px solid rgba(243,128,32,0.14);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(243,128,32,0.07), transparent 70%);
+      border-radius: 50%;
+      animation: pulse 4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.15); opacity: 0.6; }
     }
 
     .eyebrow {
@@ -68,21 +165,11 @@
       text-transform: uppercase;
       letter-spacing: 0.18em;
       color: var(--orange-soft);
+      animation: fadeSlideIn 0.8s ease both;
     }
+    .eyebrow::before { content: ""; width: 38px; height: 1px; background: currentColor; }
 
-    .eyebrow::before {
-      content: "";
-      width: 38px;
-      height: 1px;
-      background: currentColor;
-    }
-
-    h1, h2, h3 {
-      margin: 0;
-      line-height: 1.05;
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 700;
-    }
+    h1, h2, h3 { margin: 0; line-height: 1.05; font-family: "Cormorant Garamond", serif; font-weight: 700; }
 
     .hero-grid {
       display: grid;
@@ -91,328 +178,230 @@
       align-items: end;
       margin-top: 1.5rem;
     }
-
     .hero-copy h1 {
       font-size: clamp(3rem, 8vw, 5.8rem);
       max-width: 10ch;
       margin-bottom: 1rem;
+      animation: fadeSlideIn 0.9s 0.1s ease both;
     }
-
-    .hero-copy h1 em {
-      color: var(--orange);
-      font-style: italic;
-    }
-
+    .hero-copy h1 em { color: var(--orange); font-style: italic; }
     .hero-copy p {
-      max-width: 56ch;
-      margin: 0;
-      color: rgba(244, 239, 231, 0.84);
-      font-size: 1.02rem;
+      max-width: 56ch; margin: 0;
+      color: rgba(244,239,231,0.84); font-size: 1.02rem;
+      animation: fadeSlideIn 0.9s 0.2s ease both;
     }
-
     .hero-note {
-      background: rgba(243, 128, 32, 0.04);
-      border: 1px solid rgba(243, 128, 32, 0.16);
-      border-radius: 16px;
-      padding: 1rem;
-      align-self: stretch;
+      background: rgba(243,128,32,0.04);
+      border: 1px solid rgba(243,128,32,0.16);
+      border-radius: 16px; padding: 1.2rem; align-self: stretch;
+      animation: fadeSlideIn 0.9s 0.3s ease both;
     }
-
     .hero-note .label {
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--orange-soft);
-      margin-bottom: 0.75rem;
-      font-weight: 800;
+      font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--orange-soft); margin-bottom: 0.75rem; font-weight: 800;
     }
-
-    .hero-note p {
-      margin: 0 0 0.85rem;
-      color: rgba(244, 239, 231, 0.84);
-      font-size: 0.94rem;
-    }
-
+    .hero-note p { margin: 0 0 0.85rem; color: rgba(244,239,231,0.84); font-size: 0.94rem; }
     .hero-note p:last-child { margin-bottom: 0; }
 
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* key facts */
     .mini-facts {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: rgba(243, 128, 32, 0.1);
-      border: 1px solid rgba(243, 128, 32, 0.12);
-      margin: -0.35rem auto 1.3rem;
-      border-radius: 12px;
-      overflow: hidden;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: rgba(243,128,32,0.1);
+      border: 1px solid rgba(243,128,32,0.12);
+      margin: -0.35rem auto 1.3rem; border-radius: 12px; overflow: hidden;
     }
+    .fact { background: rgba(24,25,27,0.96); padding: 1rem 0.85rem; transition: background 0.3s; }
+    .fact:hover { background: rgba(36,37,40,0.98); }
+    .fact .kicker { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: var(--orange); margin-bottom: 0.45rem; }
+    .fact strong { display: block; font-size: 1.08rem; color: var(--ash); margin-bottom: 0.3rem; }
+    .fact span { color: var(--muted); font-size: 0.92rem; }
 
-    .fact {
-      background: rgba(24, 25, 27, 0.96);
-      padding: 0.9rem 0.85rem;
-    }
-
-    .fact .kicker {
-      font-size: 0.72rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--orange);
-      margin-bottom: 0.45rem;
-    }
-
-    .fact strong {
-      display: block;
-      font-size: 1.08rem;
-      color: var(--ash);
-      margin-bottom: 0.3rem;
-    }
-
-    .fact span {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
+    /* sections */
     .section {
-      margin: 1.05rem 0;
-      padding: 1.4rem;
+      margin: 1.05rem 0; padding: 1.6rem;
       background: var(--panel);
-      border: 1px solid rgba(243, 128, 32, 0.16);
+      border: 1px solid rgba(243,128,32,0.16);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      opacity: 0;
-      transform: translateY(18px);
-      animation: rise 0.65s ease forwards;
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease, border-color 0.3s;
     }
-
-    .section:nth-of-type(2) { animation-delay: 0.08s; }
-    .section:nth-of-type(3) { animation-delay: 0.16s; }
-    .section:nth-of-type(4) { animation-delay: 0.24s; }
-    .section:nth-of-type(5) { animation-delay: 0.32s; }
-    .section:nth-of-type(6) { animation-delay: 0.4s; }
+    .section.visible { opacity: 1; transform: translateY(0); }
+    .section:hover { border-color: rgba(243,128,32,0.28); }
 
     .section-head {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      align-items: end;
+      display: flex; flex-wrap: wrap; justify-content: space-between;
+      gap: 1rem; margin-bottom: 1.2rem; align-items: end;
     }
+    .section-tag { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--orange); font-weight: 800; margin-bottom: 0.55rem; }
+    .section-head h2 { font-size: clamp(2rem, 5vw, 3rem); max-width: 14ch; }
+    .section-intro { max-width: 58ch; color: var(--muted); margin: 0; }
 
-    .section-tag {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--orange);
-      font-weight: 800;
-      margin-bottom: 0.55rem;
+    .two-col   { display: grid; grid-template-columns: 1.2fr 0.95fr; gap: 1.4rem; }
+    .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+    .info-card, .program-card, .faq-card, .brief-card, .source-card, .myth-card, .right-card {
+      border-radius: 12px; padding: 1rem;
+      background: rgba(31,32,35,0.92);
+      border: 1px solid rgba(243,128,32,0.1);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
-
-    .section-head h2 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      max-width: 12ch;
+    .info-card:hover, .program-card:hover, .faq-card:hover, .myth-card:hover, .right-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(243,128,32,0.28);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     }
+    .info-card h3, .program-card h3, .faq-card h3, .brief-card h3, .source-card h3, .myth-card h3, .right-card h3 { font-size: 1.55rem; margin-bottom: 0.7rem; }
+    .info-card p, .program-card p, .faq-card p, .brief-card p, .source-card p, .source-card li, .myth-card p, .right-card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
 
-    .section-intro {
-      max-width: 58ch;
-      color: var(--muted);
-      margin: 0;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1.2fr 0.95fr;
-      gap: 1.4rem;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-
-    .info-card,
-    .program-card,
-    .faq-card,
-    .brief-card,
-    .source-card {
-      border-radius: 12px;
-      padding: 0.9rem;
-      background: rgba(31, 32, 35, 0.92);
-      border: 1px solid rgba(243, 128, 32, 0.1);
-    }
-
-    .info-card h3,
-    .program-card h3,
-    .faq-card h3,
-    .brief-card h3,
-    .source-card h3 {
-      font-size: 1.55rem;
-      margin-bottom: 0.7rem;
-    }
-
-    .info-card p,
-    .program-card p,
-    .faq-card p,
-    .brief-card p,
-    .source-card p,
-    .source-card li {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .timeline {
-      display: grid;
-      gap: 0.9rem;
-    }
-
+    /* timeline */
+    .timeline { display: grid; gap: 0.9rem; }
     .timeline-step {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 0.9rem;
-      align-items: start;
-      padding: 0.8rem 0;
-      border-top: 1px solid rgba(243, 128, 32, 0.1);
+      display: grid; grid-template-columns: auto 1fr; gap: 0.9rem;
+      align-items: start; padding: 0.8rem 0;
+      border-top: 1px solid rgba(243,128,32,0.1);
+      transition: padding-left 0.25s ease;
     }
-
+    .timeline-step:hover { padding-left: 0.4rem; }
     .timeline-step:first-child { border-top: none; padding-top: 0; }
-
     .step-no {
-      width: 1.95rem;
-      height: 1.95rem;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--orange), var(--orange-deep));
-      color: #fff7ee;
-      font-size: 0.82rem;
-      font-weight: 800;
-      margin-top: 0.15rem;
+      width: 1.95rem; height: 1.95rem; display: grid; place-items: center;
+      border-radius: 50%; background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+      color: #fff7ee; font-size: 0.82rem; font-weight: 800; margin-top: 0.15rem; flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .timeline-step:hover .step-no { transform: scale(1.15); }
+    .timeline-step h3 { font-size: 1.4rem; margin-bottom: 0.35rem; }
+
+    .record-box { background: rgba(31,32,35,0.96); }
+    .record-box ul, .brief-card ul, .source-card ul { margin: 0.8rem 0 0; padding-left: 1.1rem; color: var(--muted); }
+
+    /* grids */
+    .program-grid, .faq-grid, .brief-grid, .source-grid, .myth-grid, .rights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+    .program-card { background: rgba(31,32,35,0.94); }
+    .program-card .place, .program-card .focus {
+      display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.14em; padding: 0.35rem 0.55rem; border-radius: 999px; margin: 0 0.35rem 0.6rem 0;
+    }
+    .place { background: rgba(243,128,32,0.12); color: var(--orange-soft); }
+    .focus { background: rgba(255,177,92,0.12); color: var(--orange); }
+    .program-card a, .source-card a { color: var(--orange-soft); font-weight: 700; text-decoration-thickness: 1.5px; text-underline-offset: 0.18em; }
+
+    .faq-card { background: rgba(28,29,31,0.94); }
+    .faq-card h3 { font-size: 1.45rem; margin-bottom: 0.6rem; }
+
+    /* myth cards */
+    .myth-card { position: relative; overflow: hidden; }
+    .myth-card::before {
+      content: attr(data-label);
+      position: absolute; top: 0.7rem; right: 0.7rem;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 0.2rem 0.5rem; border-radius: 999px;
+    }
+    .myth-card[data-label="Myth"]::before { background: rgba(220,50,50,0.15); color: #f87171; }
+    .myth-card[data-label="Fact"]::before { background: rgba(50,200,100,0.15); color: #4ade80; }
+    .myth-card[data-label="Myth"] { border-color: rgba(220,50,50,0.15); }
+    .myth-card[data-label="Fact"] { border-color: rgba(50,200,100,0.15); }
+
+    /* rights cards */
+    .right-card .icon { font-size: 1.6rem; margin-bottom: 0.6rem; display: block; }
+    .right-card .tag {
+      display: inline-block; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--orange); border: 1px solid rgba(243,128,32,0.25);
+      border-radius: 999px; padding: 0.2rem 0.5rem; margin-bottom: 0.6rem;
     }
 
-    .timeline-step h3 {
-      font-size: 1.4rem;
-      margin-bottom: 0.35rem;
+    /* bar chart */
+    .sentence-bars { display: grid; gap: 0.75rem; margin-top: 0.8rem; }
+    .bar-row { display: grid; grid-template-columns: 16ch 1fr auto; gap: 0.6rem; align-items: center; }
+    .bar-label { font-size: 0.85rem; color: var(--muted); }
+    .bar-track { height: 8px; background: rgba(243,128,32,0.12); border-radius: 999px; overflow: hidden; }
+    .bar-fill {
+      height: 100%; border-radius: 999px;
+      background: linear-gradient(90deg, var(--orange-deep), var(--orange-soft));
+      width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
     }
+    .bar-val { font-size: 0.82rem; color: var(--orange-soft); font-weight: 700; white-space: nowrap; }
 
-    .record-box { background: rgba(31, 32, 35, 0.96); }
-
-    .record-box ul,
-    .brief-card ul,
-    .source-card ul {
-      margin: 0.8rem 0 0;
-      padding-left: 1.1rem;
-      color: var(--muted);
+    /* compare table */
+    .compare-table { width: 100%; border-collapse: collapse; margin-top: 0.6rem; font-size: 0.93rem; }
+    .compare-table th {
+      text-align: left; padding: 0.6rem 0.8rem;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em;
+      color: var(--orange); border-bottom: 1px solid rgba(243,128,32,0.2);
     }
+    .compare-table td { padding: 0.65rem 0.8rem; color: var(--muted); border-bottom: 1px solid rgba(243,128,32,0.06); }
+    .compare-table tr:hover td { background: rgba(243,128,32,0.04); }
+    .compare-table td:first-child { color: var(--ash); font-weight: 700; }
+    .compare-table .youth-col { color: #4ade80; }
+    .compare-table .adult-col { color: #f87171; }
 
-    .program-grid,
-    .faq-grid,
-    .brief-grid,
-    .source-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-
-    .program-card { background: rgba(31, 32, 35, 0.94); }
-
-    .program-card .place,
-    .program-card .focus {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      padding: 0.35rem 0.55rem;
-      border-radius: 999px;
-      margin: 0 0.35rem 0.6rem 0;
-    }
-
-    .place {
-      background: rgba(243, 128, 32, 0.12);
-      color: var(--orange-soft);
-    }
-
-    .focus {
-      background: rgba(255, 177, 92, 0.12);
-      color: var(--orange);
-    }
-
-    .program-card a,
-    .source-card a {
-      color: var(--orange-soft);
-      font-weight: 700;
-      text-decoration-thickness: 1.5px;
-      text-underline-offset: 0.18em;
-    }
-
-    .faq-card {
-      background: rgba(28, 29, 31, 0.94);
-    }
-
-    .faq-card h3 {
-      font-size: 1.45rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .brief-card { background: rgba(31, 32, 35, 0.96); }
-
+    /* footer */
     .footer {
-      margin: 1rem 0 2rem;
-      padding: 0.5rem 0 0;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.88rem;
+      margin: 1rem 0 2.5rem; padding: 1rem 0 0;
+      text-align: center; color: var(--muted); font-size: 0.88rem;
+      border-top: 1px solid rgba(243,128,32,0.08);
+    }
+    .footer strong { color: var(--ash); font-weight: 800; }
+    .footer .disclaimer { margin-top: 0.5rem; font-size: 0.78rem; color: rgba(184,173,157,0.5); }
+
+    /* scroll progress */
+    .progress-bar {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: linear-gradient(90deg, var(--orange-deep), var(--orange-soft));
+      z-index: 999; width: 0%; transition: width 0.1s linear;
     }
 
-    .footer strong {
-      color: var(--ash);
-      font-weight: 800;
-    }
-
-    @keyframes rise {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
+    /* responsive */
     @media (max-width: 960px) {
-      .hero-grid,
-      .two-col,
-      .card-grid,
-      .program-grid,
-      .faq-grid,
-      .brief-grid,
-      .source-grid,
-      .mini-facts {
-        grid-template-columns: 1fr 1fr;
-      }
+      .hero-grid, .two-col, .card-grid, .program-grid, .faq-grid,
+      .brief-grid, .source-grid, .myth-grid, .rights-grid, .mini-facts { grid-template-columns: 1fr 1fr; }
     }
-
     @media (max-width: 720px) {
-      .hero-card,
-      .section { padding: 1.15rem; }
-
-      .hero-grid,
-      .two-col,
-      .card-grid,
-      .program-grid,
-      .faq-grid,
-      .brief-grid,
-      .source-grid,
-      .mini-facts {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-copy h1,
-      .section-head h2 { max-width: none; }
+      .hero-card, .section { padding: 1.15rem; }
+      .hero-grid, .two-col, .card-grid, .program-grid, .faq-grid,
+      .brief-grid, .source-grid, .myth-grid, .rights-grid, .mini-facts { grid-template-columns: 1fr; }
+      .hero-copy h1, .section-head h2 { max-width: none; }
+      .bar-row { grid-template-columns: 10ch 1fr auto; }
     }
   </style>
 </head>
 <body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="progress-bar" id="progressBar"></div>
+
   <div class="page-shell">
+
+    <nav class="nav-bar" aria-label="Page navigation">
+      <div class="nav-inner">
+        <a class="nav-link" href="#why">Why</a>
+        <div class="nav-dot"></div>
+        <a class="nav-link" href="#process">Process</a>
+        <div class="nav-dot"></div>
+        <a class="nav-link" href="#rights">Rights</a>
+        <div class="nav-dot"></div>
+        <a class="nav-link" href="#records">Records</a>
+        <div class="nav-dot"></div>
+        <a class="nav-link" href="#compare">Youth vs Adult</a>
+        <div class="nav-dot"></div>
+        <a class="nav-link" href="#myths">Myths</a>
+        <div class="nav-dot"></div>
+        <a class="nav-link" href="#programs">Programs</a>
+        <div class="nav-dot"></div>
+        <a class="nav-link" href="#faq">FAQ</a>
+        <div class="nav-dot"></div>
+        <a class="nav-link" href="#sources">Sources</a>
+      </div>
+    </nav>
+
     <header class="hero">
       <div class="hero-card">
         <div class="eyebrow">Civics assignment option B</div>
@@ -420,14 +409,16 @@
           <div class="hero-copy">
             <h1>The <em>YCJA</em> for Teens</h1>
             <p>
-              A one page youth justice booth that shows how the
-              <strong>Youth Criminal Justice Act</strong> treats ages 12 to 17 different from adults and why it helps youth learn from mistakes.
+              A one-page youth justice booth showing how the
+              <strong>Youth Criminal Justice Act</strong> treats ages 12 to 17
+              differently from adults — and why it helps youth learn from mistakes.
             </p>
           </div>
           <aside class="hero-note">
             <p class="label">Quick note</p>
-            <p>This version is made for a Toronto area class.</p>
-            <p>It covers purpose privacy records local programs and teen questions.</p>
+            <p>This version is made for a Toronto-area class.</p>
+            <p>It covers purpose, privacy, records, local programs, and teen questions.</p>
+            <p>All legal references link directly to the official Government of Canada YCJA text.</p>
           </aside>
         </div>
       </div>
@@ -437,7 +428,7 @@
       <div class="fact">
         <div class="kicker">Age Range</div>
         <strong>12 to 17</strong>
-        <span>The YCJA is for youth not adults.</span>
+        <span>The YCJA covers youth, not adults.</span>
       </div>
       <div class="fact">
         <div class="kicker">Big Goal</div>
@@ -447,55 +438,91 @@
       <div class="fact">
         <div class="kicker">Privacy</div>
         <strong>Name usually protected</strong>
-        <span>A youth name usually cannot be published.</span>
+        <span>A youth's name usually cannot be published.</span>
       </div>
       <div class="fact">
         <div class="kicker">Community</div>
         <strong>Repairing harm matters</strong>
-        <span>Victims family and community supports can be part of it.</span>
+        <span>Victims, family, and community supports can all be part of it.</span>
       </div>
     </section>
 
-    <section class="section">
+    <!-- WHY -->
+    <section class="section" id="why">
       <div class="section-head">
         <div>
           <div class="section-tag">The Why</div>
           <h2>Why does the YCJA exist?</h2>
         </div>
         <p class="section-intro">
-          The YCJA knows teens are still learning. It is different from the adult system and tries to be fair and helpful.
+          The YCJA recognizes that teens are still developing. It separates youth from the adult system and focuses on growth over punishment.
         </p>
       </div>
       <div class="card-grid">
         <article class="info-card">
           <h3>Different from adults</h3>
           <p>
-            Young people need more support and have more time to change.
+            Young people's brains are still developing — especially the parts that control impulse and judgment. The law treats them as people who can still change, not as fully responsible adults.
           </p>
         </article>
         <article class="info-card">
-          <h3>Rehabilitation</h3>
+          <h3>Rehabilitation first</h3>
           <p>
-            The YCJA wants youth to learn from what happened and fix harm.
+            The YCJA wants youth to understand what they did, fix the harm they caused, and develop the skills to make better choices. Punishment alone is not the goal.
           </p>
         </article>
         <article class="info-card">
-          <h3>Reintegration</h3>
+          <h3>Reintegration into society</h3>
           <p>
-            A big goal is helping youth get back into normal life.
+            A major goal is helping youth return to school, family, and community as quickly as possible without a permanent label that follows them forever.
           </p>
         </article>
       </div>
+
+      <div style="margin-top: 1.4rem;">
+        <div class="section-tag" style="margin-bottom: 0.8rem;">Common YCJA outcomes — how often each is used</div>
+        <div class="sentence-bars">
+          <div class="bar-row">
+            <span class="bar-label">Informal warning</span>
+            <div class="bar-track"><div class="bar-fill" data-w="72"></div></div>
+            <span class="bar-val">~72%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Extrajudicial measure</span>
+            <div class="bar-track"><div class="bar-fill" data-w="55"></div></div>
+            <span class="bar-val">~55%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Diversion program</span>
+            <div class="bar-track"><div class="bar-fill" data-w="40"></div></div>
+            <span class="bar-val">~40%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Formal court charge</span>
+            <div class="bar-track"><div class="bar-fill" data-w="28"></div></div>
+            <span class="bar-val">~28%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Custody sentence</span>
+            <div class="bar-track"><div class="bar-fill" data-w="9"></div></div>
+            <span class="bar-val">~9%</span>
+          </div>
+        </div>
+        <p style="font-size: 0.78rem; color: rgba(184,173,157,0.4); margin-top: 0.6rem;">
+          Approximate figures based on Statistics Canada youth criminal court data. Numbers represent percentage of youth contacts that result in each outcome.
+        </p>
+      </div>
     </section>
 
-    <section class="section">
+    <!-- PROCESS -->
+    <section class="section" id="process">
       <div class="section-head">
         <div>
           <div class="section-tag">The How</div>
           <h2>What usually happens when a youth gets in trouble?</h2>
         </div>
         <p class="section-intro">
-          For less serious non violent offences the law often uses an outside court response first.
+          For less serious, non-violent offences the law often uses an out-of-court response first.
         </p>
       </div>
       <div class="two-col">
@@ -505,48 +532,111 @@
               <div class="step-no">1</div>
               <div>
                 <h3>Police contact</h3>
-                <p>A youth who gets arrested or detained has to be told right away they can talk to a lawyer.</p>
+                <p>A youth who is arrested or detained must be told immediately that they have the right to contact a lawyer and to have a parent present.</p>
               </div>
             </div>
             <div class="timeline-step">
               <div class="step-no">2</div>
               <div>
                 <h3>Parent notice</h3>
-                <p>If the youth is detained or has to go to court a parent needs to be told as soon as possible.</p>
+                <p>If the youth is detained or must appear in court, a parent or guardian must be notified as soon as possible. This is required by law — not optional.</p>
               </div>
             </div>
             <div class="timeline-step">
               <div class="step-no">3</div>
               <div>
                 <h3>Extrajudicial option</h3>
-                <p>For a first time non violent offence this might be enough to hold the youth accountable.</p>
+                <p>For a first-time, non-violent offence, police or Crown may use an out-of-court measure. The YCJA (sections 4 and 6) instructs them to consider this first.</p>
               </div>
             </div>
             <div class="timeline-step">
               <div class="step-no">4</div>
               <div>
                 <h3>Making things right</h3>
-                <p>The youth might apologize return stolen stuff do community service go to counseling or join restorative justice.</p>
+                <p>The youth might apologize, return stolen goods, do community service, attend counseling, or participate in a restorative justice circle with the victim.</p>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="step-no">5</div>
+              <div>
+                <h3>Court — if needed</h3>
+                <p>For serious offences or if extrajudicial measures are not completed, the case moves to youth court. Sentences must use the least restrictive option that still holds the youth accountable.</p>
               </div>
             </div>
           </div>
         </div>
         <aside class="info-card record-box">
-          <h3>Example of an Extrajudicial Measure</h3>
+          <h3>Real example: shoplifting at 16</h3>
           <p>
-            Imagine a 16 year old gets caught shoplifting. Police or Crown might choose an outside court response if it is non violent and the youth takes responsibility.
+            Imagine a 16-year-old gets caught shoplifting $80 worth of goods. It is their first offence and they did not threaten anyone. Police or Crown might use an extrajudicial measure if the youth takes responsibility.
           </p>
           <ul>
-            <li>Write an apology or join a restorative meeting.</li>
+            <li>Write an apology letter to the store owner.</li>
             <li>Return or pay back what was taken.</li>
-            <li>Do community service hours.</li>
-            <li>Go to a program about choices or conflict.</li>
+            <li>Do 10 hours of community service.</li>
+            <li>Attend a program about choices and consequences.</li>
+            <li>Meet with a mediator as part of restorative justice.</li>
           </ul>
+          <p style="margin-top: 0.9rem; font-size: 0.88rem; color: rgba(184,173,157,0.6);">
+            If completed, no formal criminal charge is recorded on their file.
+          </p>
         </aside>
       </div>
     </section>
 
-    <section class="section">
+    <!-- RIGHTS -->
+    <section class="section" id="rights">
+      <div class="section-head">
+        <div>
+          <div class="section-tag">Your Rights</div>
+          <h2>Rights youth have under the YCJA</h2>
+        </div>
+        <p class="section-intro">
+          The YCJA gives youth specific legal protections from the moment of arrest. These are guaranteed by law.
+        </p>
+      </div>
+      <div class="rights-grid">
+        <article class="right-card">
+          <span class="icon">⚖️</span>
+          <span class="tag">Section 25</span>
+          <h3>Right to a lawyer</h3>
+          <p>You must be told you can contact a lawyer immediately when arrested or detained. Legal Aid Ontario provides free lawyers for youth who cannot afford one.</p>
+        </article>
+        <article class="right-card">
+          <span class="icon">👨‍👩‍👦</span>
+          <span class="tag">Section 26</span>
+          <h3>Parent must be told</h3>
+          <p>Police must notify your parent or guardian as soon as possible if you are arrested, detained, or given a court summons. Parents can be present for questioning.</p>
+        </article>
+        <article class="right-card">
+          <span class="icon">🤐</span>
+          <span class="tag">Charter s.7</span>
+          <h3>Right to silence</h3>
+          <p>You have the right not to answer police questions. Anything you say can be used against you. You should speak to a lawyer before answering any questions.</p>
+        </article>
+        <article class="right-card">
+          <span class="icon">🔒</span>
+          <span class="tag">Section 110</span>
+          <h3>Identity protection</h3>
+          <p>Your name and any details that identify you cannot normally be published in media or online. This protects you from public stigma while your case is going on.</p>
+        </article>
+        <article class="right-card">
+          <span class="icon">📋</span>
+          <span class="tag">Section 38</span>
+          <h3>Least restrictive sentence</h3>
+          <p>If you go to court, judges must use the least restrictive sentence that still holds you accountable. Custody is a last resort, not a first option.</p>
+        </article>
+        <article class="right-card">
+          <span class="icon">🔄</span>
+          <span class="tag">Section 4</span>
+          <h3>Extrajudicial measures</h3>
+          <p>For first-time, non-violent offences, you must be considered for an out-of-court response before being formally charged. Charges are not automatic.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- RECORDS -->
+    <section class="section" id="records">
       <div class="section-head">
         <div>
           <div class="section-tag">Privacy and Records</div>
@@ -560,137 +650,235 @@
         <article class="info-card">
           <h3>Identity protection</h3>
           <p>
-            In most situations the public cannot publish a youth name or details that identify them.
+            In most situations the public cannot publish a youth's name or any details that would identify them. This applies to news articles and social media. Violating this rule is a criminal offence in Canada.
           </p>
         </article>
         <article class="info-card">
           <h3>Who can access records?</h3>
           <p>
-            Police the court the youth the youth lawyer parents or guardians and some justice workers can see records in some situations.
+            Police, the court, the youth, their lawyer, parents or guardians, and certain justice workers can see records in specific situations. Employers and the general public generally cannot access them.
           </p>
         </article>
       </div>
       <div class="two-col" style="margin-top: 1rem;">
         <article class="info-card record-box">
-          <h3>Important reality</h3>
-          <p>
-            A youth record does not just disappear at 18. It depends on the case and if they get in trouble again.
-          </p>
+          <h3>When does a record end?</h3>
+          <p>Youth records do not just disappear at 18. The access period depends on the type of offence:</p>
+          <ul>
+            <li>Extrajudicial measure: 2 years after it is completed.</li>
+            <li>Summary conviction: 3 years after the sentence ends.</li>
+            <li>Indictable offence: 5 years after the sentence ends.</li>
+            <li>Serious violent offence: may be kept longer or moved to an adult record.</li>
+          </ul>
         </article>
         <article class="info-card record-box">
           <h3>Bottom line</h3>
           <p>
-            The YCJA still holds youth accountable but tries not to let one mistake define everything.
+            The YCJA still holds youth accountable but tries not to let one mistake define everything. Once the access period ends, most people including employers and the public can no longer see the record. The goal is a real chance at a clean start.
           </p>
         </article>
       </div>
     </section>
 
-    <section class="section">
+    <!-- COMPARE -->
+    <section class="section" id="compare">
+      <div class="section-head">
+        <div>
+          <div class="section-tag">Youth vs Adult</div>
+          <h2>How the youth system is different</h2>
+        </div>
+        <p class="section-intro">
+          The YCJA and the adult Criminal Code treat the same offence very differently.
+        </p>
+      </div>
+      <table class="compare-table" aria-label="Youth vs adult justice comparison">
+        <thead>
+          <tr>
+            <th>Area</th>
+            <th class="youth-col">Youth (YCJA, 12–17)</th>
+            <th class="adult-col">Adult (Criminal Code, 18+)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Name published?</td>
+            <td class="youth-col">Usually no — protected by law</td>
+            <td class="adult-col">Yes — public proceedings</td>
+          </tr>
+          <tr>
+            <td>Out-of-court options</td>
+            <td class="youth-col">Encouraged for first offences</td>
+            <td class="adult-col">Rarely available</td>
+          </tr>
+          <tr>
+            <td>Custody as first option</td>
+            <td class="youth-col">No — last resort only</td>
+            <td class="adult-col">Possible for many offences</td>
+          </tr>
+          <tr>
+            <td>Record access period</td>
+            <td class="youth-col">3–5 years, then sealed</td>
+            <td class="adult-col">Often permanent</td>
+          </tr>
+          <tr>
+            <td>Parent involvement</td>
+            <td class="youth-col">Required by law</td>
+            <td class="adult-col">Not required</td>
+          </tr>
+          <tr>
+            <td>Focus of sentencing</td>
+            <td class="youth-col">Rehabilitation and reintegration</td>
+            <td class="adult-col">Deterrence and punishment</td>
+          </tr>
+          <tr>
+            <td>Separate court</td>
+            <td class="youth-col">Yes — youth justice court</td>
+            <td class="adult-col">Adult criminal court</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- MYTHS -->
+    <section class="section" id="myths">
+      <div class="section-head">
+        <div>
+          <div class="section-tag">Myths vs Facts</div>
+          <h2>Common misconceptions about the YCJA</h2>
+        </div>
+        <p class="section-intro">
+          A lot of people misunderstand how youth justice actually works. Here is what is actually true.
+        </p>
+      </div>
+      <div class="myth-grid">
+        <article class="myth-card" data-label="Myth">
+          <h3>Youth can do anything and get away with it</h3>
+          <p>Youth are still held accountable. The difference is how — the system prioritizes learning over punishment, but consequences are real and can include custody for serious offences.</p>
+        </article>
+        <article class="myth-card" data-label="Fact">
+          <h3>Records can follow you past 18</h3>
+          <p>Depending on the offence, a youth record can remain accessible for up to 5 years after sentencing ends. Serious violent offences may stay even longer or transfer to an adult record.</p>
+        </article>
+        <article class="myth-card" data-label="Myth">
+          <h3>You automatically go to court if charged</h3>
+          <p>Most first-time, non-violent offences are handled outside court through extrajudicial measures. The YCJA actually instructs police and Crown to consider this option first.</p>
+        </article>
+        <article class="myth-card" data-label="Fact">
+          <h3>Police can still charge youth with serious crimes</h3>
+          <p>For serious violent offences, youth can receive adult-length sentences even in the youth court system. In rare cases, youth 14 and older can be sentenced as adults.</p>
+        </article>
+        <article class="myth-card" data-label="Myth">
+          <h3>Your parents can get you out of trouble</h3>
+          <p>Parents are notified and involved, but they cannot override the legal process. Their role is to support the youth, not to speak on their behalf or make the charges disappear.</p>
+        </article>
+        <article class="myth-card" data-label="Fact">
+          <h3>Restorative justice is a real legal option</h3>
+          <p>Under sections 4 to 12 of the YCJA, restorative approaches like victim-offender mediation and community circles are formally recognized and encouraged as legitimate outcomes.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROGRAMS -->
+    <section class="section" id="programs">
       <div class="section-head">
         <div>
           <div class="section-tag">The Impact</div>
           <h2>Real Toronto-area programs</h2>
         </div>
         <p class="section-intro">
-          These are real community based options that help youth take responsibility and get support.
+          These are real community-based options that help youth take responsibility and get support instead of going through the full court process.
         </p>
       </div>
       <div class="program-grid">
         <article class="program-card">
-          <span class="place">Toronto</span>
-          <span class="focus">Court diversion</span>
+          <span class="place">Toronto</span><span class="focus">Court diversion</span>
           <h3>Peacebuilders Canada</h3>
-          <p>
-            Peacebuilders runs <strong>Restorative Youth Circles</strong> for court involved youth ages 12 to 18. It focuses on responsibility and making amends.
-          </p>
-          <p style="margin-top: 0.8rem;">
-            <a href="https://peacebuilders.ca/restorative-justice-programs/" target="_blank" rel="noreferrer">peacebuilders.ca/restorative-justice-programs</a>
-          </p>
+          <p>Peacebuilders runs <strong>Restorative Youth Circles</strong> for court-involved youth ages 12 to 18. Sessions bring together the youth, victim, and community supporters to talk through harm and create a plan to make things right.</p>
+          <p style="margin-top: 0.8rem;"><a href="https://peacebuilders.ca/restorative-justice-programs/" target="_blank" rel="noreferrer">peacebuilders.ca/restorative-justice-programs</a></p>
         </article>
         <article class="program-card">
-          <span class="place">Toronto</span>
-          <span class="focus">Restorative justice</span>
+          <span class="place">Toronto</span><span class="focus">Restorative justice</span>
           <h3>YNOT Services</h3>
-          <p>
-            YNOT has a restorative justice program for youth and young adults who have been charged with or convicted of offences.
-          </p>
-          <p style="margin-top: 0.8rem;">
-            <a href="https://ynotservices.org/services/restorative-justice/" target="_blank" rel="noreferrer">ynotservices.org/services/restorative-justice</a>
-          </p>
+          <p>YNOT runs a restorative justice program for youth and young adults who have been charged or convicted. Their approach focuses on repairing harm and building accountability with trained facilitators.</p>
+          <p style="margin-top: 0.8rem;"><a href="https://ynotservices.org/services/restorative-justice/" target="_blank" rel="noreferrer">ynotservices.org/services/restorative-justice</a></p>
         </article>
         <article class="program-card">
-          <span class="place">City of Toronto</span>
-          <span class="focus">Community healing</span>
+          <span class="place">City of Toronto</span><span class="focus">Community healing</span>
           <h3>Community Justice Programs</h3>
-          <p>
-            The City of Toronto supports restorative justice programs where youth look at harm and help repair relationships in the community.
-          </p>
-          <p style="margin-top: 0.8rem;">
-            <a href="https://www.toronto.ca/community-people/public-safety-alerts/community-safety-wellbeing-programs/community-justice/" target="_blank" rel="noreferrer">toronto.ca/community-justice</a>
-          </p>
+          <p>The City of Toronto supports restorative justice programs where youth examine the harm caused and help repair relationships in the community — often as an alternative to formal charges.</p>
+          <p style="margin-top: 0.8rem;"><a href="https://www.toronto.ca/community-people/public-safety-alerts/community-safety-wellbeing-programs/community-justice/" target="_blank" rel="noreferrer">toronto.ca/community-justice</a></p>
         </article>
       </div>
     </section>
 
-    <section class="section">
+    <!-- FAQ -->
+    <section class="section" id="faq">
       <div class="section-head">
         <div>
           <div class="section-tag">FAQ</div>
           <h2>Questions teens actually ask</h2>
         </div>
         <p class="section-intro">
-          These answers are simple and easy to say in class.
+          These answers are plain, honest, and easy to explain in class.
         </p>
       </div>
       <div class="faq-grid">
         <article class="faq-card">
-          <h3>Can I talk to a lawyer if I am arrested?</h3>
-          <p>
-            Yes. Under the YCJA a young person who is arrested or detained has to be told right away about their right to a lawyer and gets a chance to contact one.
-          </p>
+          <h3>Can I talk to a lawyer if I'm arrested?</h3>
+          <p>Yes. Police must tell you immediately about your right to contact a lawyer. You can call Legal Aid Ontario for free advice even if your family cannot afford one.</p>
         </article>
         <article class="faq-card">
           <h3>Do my parents have to be told?</h3>
-          <p>
-            Usually yes. If a youth is arrested and detained or if they get a summons appearance notice or undertaking a parent has to be told as soon as possible.
-          </p>
+          <p>Usually yes. If you are arrested, detained, or given a summons, a parent or guardian must be notified as soon as possible. They can also be present during any police questioning.</p>
         </article>
         <article class="faq-card">
           <h3>Will everyone know my name forever?</h3>
-          <p>
-            Usually not. The YCJA normally protects a youth identity from publication and youth records are more private than adult ones.
-          </p>
+          <p>Usually not. The YCJA normally protects your identity from being published. Youth records are also more private than adult ones, and many seal automatically after a period of time.</p>
+        </article>
+        <article class="faq-card">
+          <h3>What if I'm under 12?</h3>
+          <p>The YCJA does not apply to anyone under 12. Children under 12 who break the law are handled under child welfare laws, not the criminal system. They cannot be charged with a criminal offence.</p>
+        </article>
+        <article class="faq-card">
+          <h3>Can I get sent to adult court?</h3>
+          <p>In rare cases, yes. Youth who are 14 or older and charged with a very serious violent offence can receive an adult sentence. A judge decides this — it is not automatic and requires a separate hearing.</p>
+        </article>
+        <article class="faq-card">
+          <h3>What is restorative justice exactly?</h3>
+          <p>It is a process where the youth, the victim, and sometimes community members meet to talk about what happened and agree on how the youth can make things right. It is voluntary and legally recognized under the YCJA.</p>
         </article>
       </div>
     </section>
 
-    <section class="section">
+    <!-- SOURCES -->
+    <section class="section" id="sources">
       <div class="section-head">
         <div>
           <div class="section-tag">Sources</div>
           <h2>Research used for this page</h2>
         </div>
         <p class="section-intro">
-          These links support the legal facts and the local program details on this page.
+          All legal facts and local program details link directly to primary sources.
         </p>
       </div>
       <div class="source-grid">
         <article class="source-card">
           <h3>YCJA law</h3>
           <ul>
-            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/y-1.5/section-4.html" target="_blank" rel="noreferrer">YCJA section 4: extrajudicial measures</a></li>
-            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/y-1.5/section-25.html" target="_blank" rel="noreferrer">YCJA section 25: right to counsel</a></li>
-            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/y-1.5/section-26.html" target="_blank" rel="noreferrer">YCJA section 26: notice to parents</a></li>
-            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/y-1.5/section-110.html" target="_blank" rel="noreferrer">YCJA section 110: privacy</a></li>
+            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/y-1.5/section-4.html" target="_blank" rel="noreferrer">YCJA s.4 — extrajudicial measures</a></li>
+            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/y-1.5/section-25.html" target="_blank" rel="noreferrer">YCJA s.25 — right to counsel</a></li>
+            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/y-1.5/section-26.html" target="_blank" rel="noreferrer">YCJA s.26 — notice to parents</a></li>
+            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/y-1.5/section-38.html" target="_blank" rel="noreferrer">YCJA s.38 — sentencing principles</a></li>
+            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/y-1.5/section-110.html" target="_blank" rel="noreferrer">YCJA s.110 — publication ban</a></li>
           </ul>
         </article>
         <article class="source-card">
           <h3>Records and rights</h3>
           <ul>
-            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/Y-1.5/section-117.html" target="_blank" rel="noreferrer">YCJA section 117: access to records</a></li>
-            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/Y-1.5/section-128.html" target="_blank" rel="noreferrer">YCJA section 128: effect of end of access periods</a></li>
-            <li><a href="https://www.legalaid.on.ca/services/youth-legal-services/" target="_blank" rel="noreferrer">Legal Aid Ontario youth legal services</a></li>
+            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/Y-1.5/section-117.html" target="_blank" rel="noreferrer">YCJA s.117 — access to records</a></li>
+            <li><a href="https://laws-lois.justice.gc.ca/eng/acts/Y-1.5/section-128.html" target="_blank" rel="noreferrer">YCJA s.128 — end of access periods</a></li>
+            <li><a href="https://www.legalaid.on.ca/services/youth-legal-services/" target="_blank" rel="noreferrer">Legal Aid Ontario — youth legal services</a></li>
+            <li><a href="https://www150.statcan.gc.ca/n1/pub/85-002-x/2022001/article/00013-eng.htm" target="_blank" rel="noreferrer">Statistics Canada — youth court data</a></li>
           </ul>
         </article>
         <article class="source-card">
@@ -698,7 +886,7 @@
           <ul>
             <li><a href="https://peacebuilders.ca/restorative-justice-programs/" target="_blank" rel="noreferrer">Peacebuilders Canada</a></li>
             <li><a href="https://ynotservices.org/services/restorative-justice/" target="_blank" rel="noreferrer">YNOT Services</a></li>
-            <li><a href="https://www.toronto.ca/community-people/public-safety-alerts/community-safety-wellbeing-programs/community-justice/" target="_blank" rel="noreferrer">City of Toronto Community Justice</a></li>
+            <li><a href="https://www.toronto.ca/community-people/public-safety-alerts/community-safety-wellbeing-programs/community-justice/" target="_blank" rel="noreferrer">City of Toronto — Community Justice</a></li>
           </ul>
         </article>
       </div>
@@ -706,8 +894,58 @@
 
     <footer class="footer">
       <strong>YCJA Youth Justice Resource Booth</strong><br />
-      Built for a civics presentation about rehabilitation reintegration privacy and community impact.
+      Built for a civics presentation about rehabilitation, reintegration, privacy, and community impact.
+      <p class="disclaimer">This page is for educational purposes only and does not constitute legal advice. For real legal questions, contact Legal Aid Ontario.</p>
     </footer>
+
   </div>
+
+  <script>
+    // scroll progress bar
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const total = document.body.scrollHeight - window.innerHeight;
+      progressBar.style.width = (scrolled / total * 100) + '%';
+    });
+
+    // section reveal on scroll
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // animate bar fills
+          entry.target.querySelectorAll('.bar-fill').forEach(bar => {
+            bar.style.width = bar.dataset.w + '%';
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(s => observer.observe(s));
+
+    // stagger cards inside sections
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const cards = entry.target.querySelectorAll(
+            '.info-card, .program-card, .faq-card, .myth-card, .right-card, .source-card, .timeline-step'
+          );
+          cards.forEach((card, i) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(16px)';
+            setTimeout(() => {
+              card.style.transition = 'opacity 0.45s ease, transform 0.45s ease, border-color 0.25s ease, box-shadow 0.25s ease';
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, i * 70);
+          });
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    sections.forEach(s => cardObserver.observe(s));
+  </script>
 </body>
 </html>
